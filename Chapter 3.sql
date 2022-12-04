@@ -193,19 +193,19 @@ ORDER BY c.last_name, c.first_name;
  Sort in Ascending or Descending order
  */
 SELECT c.first_name, c.last_name, to_char(r.rental_date, 'HH24:mm:ss') rental_time
-    FROM customer c
-INNER JOIN rental r
-ON c.customer_id = r.customer_id
+FROM customer c
+         INNER JOIN rental r
+                    ON c.customer_id = r.customer_id
 WHERE date(r.rental_date) = '2005-06-14'
 ORDER BY to_char(r.rental_date, 'HH24:mm:ss') DESC;
 
 /*
  Use 'LIMIT' command word for limit resulting set by first 5-th
  */
- SELECT c.first_name, c.last_name, to_char(r.rental_date, 'HH24:mm:ss') rental_time
-    FROM customer c
-INNER JOIN rental r
-ON c.customer_id = r.customer_id
+SELECT c.first_name, c.last_name, to_char(r.rental_date, 'HH24:mm:ss') rental_time
+FROM customer c
+         INNER JOIN rental r
+                    ON c.customer_id = r.customer_id
 WHERE date(r.rental_date) = '2005-06-14'
 ORDER BY to_char(r.rental_date, 'HH24:mm:ss') DESC
 LIMIT 5;
@@ -214,7 +214,7 @@ LIMIT 5;
  Tasks from book
  */
 
- -- 3.1
+-- 3.1
 SELECT a.actor_id, a.first_name, a.last_name
 FROM actor AS a
 ORDER BY a.last_name, a.first_name;
@@ -223,7 +223,7 @@ ORDER BY a.last_name, a.first_name;
 SELECT a.actor_id, a.first_name, a.last_name
 FROM actor AS a
 WHERE (a.last_name = 'WILLIAMS')
-OR (a.last_name = 'DAVIS');
+   OR (a.last_name = 'DAVIS');
 
 -- OR Solution from book:
 SELECT actor_id, first_name, last_name
@@ -232,13 +232,13 @@ WHERE last_name IN ('WILLIAMS', 'DAVIS');
 
 -- 3.3
 SELECT DISTINCT r.customer_id
-    FROM rental AS r
+FROM rental AS r
 WHERE date(r.rental_date) = '2005-07-05';
 
 -- 3.4
 SELECT c.email, r.return_date
-    FROM customer AS c
-INNER JOIN rental r
-    ON c.customer_id = r.customer_id
+FROM customer AS c
+         INNER JOIN rental r
+                    ON c.customer_id = r.customer_id
 WHERE date(r.rental_date) = '2005-06-14'
 ORDER BY r.return_date DESC;
