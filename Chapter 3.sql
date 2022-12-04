@@ -217,7 +217,7 @@ LIMIT 5;
  -- 3.1
 SELECT a.actor_id, a.first_name, a.last_name
 FROM actor AS a
-ORDER BY a.first_name, a.last_name;
+ORDER BY a.last_name, a.first_name;
 
 -- 3.2
 SELECT a.actor_id, a.first_name, a.last_name
@@ -225,8 +225,13 @@ FROM actor AS a
 WHERE (a.last_name = 'WILLIAMS')
 OR (a.last_name = 'DAVIS');
 
+-- OR Solution from book:
+SELECT actor_id, first_name, last_name
+FROM actor
+WHERE last_name IN ('WILLIAMS', 'DAVIS');
+
 -- 3.3
-SELECT r.customer_id
+SELECT DISTINCT r.customer_id
     FROM rental AS r
 WHERE date(r.rental_date) = '2005-07-05';
 
