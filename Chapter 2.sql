@@ -1,6 +1,11 @@
+/*
+ Chapter 2 (use Sakila DB) - Postgres SQL syntax here!
+ */
+
 CREATE TYPE eye_color AS ENUM ('BR','BL','GR');
 
-CREATE TABLE person (
+CREATE TABLE person
+(
     person_id   SERIAL,
     fname       VARCHAR(20),
     lname       VARCHAR(20),
@@ -41,9 +46,9 @@ SELECT person_id, fname, lname, birth_date
 FROM person
 WHERE person_id = 2;
 
-SELECT  person_id, fname, lname, birth_date
+SELECT person_id, fname, lname, birth_date
 FROM person
-WHERE  fname = 'William';
+WHERE fname = 'William';
 
 /*
  Add some food:
@@ -85,13 +90,18 @@ FROM person;
  Update rows in table
  */
 UPDATE person
-SET street = 'Unknown str.', city = 'Boston', state = 'MA', country = 'USA', postal_code = '02138'
+SET street      = 'Unknown str.',
+    city        = 'Boston',
+    state       = 'MA',
+    country     = 'USA',
+    postal_code = '02138'
 WHERE person_id = 1;
 
 /*
  Delete rows in table
  */
-DELETE FROM person
+DELETE
+FROM person
 WHERE person_id = 3;
 
 /*
