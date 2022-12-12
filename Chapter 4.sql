@@ -204,7 +204,7 @@ WHERE customer_id != 5
 -- Answer result included 855 rows
 
 -- 4.2
-SELECT payment_id, customer_id, amount, TO_CHAR(payment_date, 'YYYY-MM-dd')
+SELECT payment_id, customer_id, amount, TO_CHAR(payment_date, 'YYYY-MM-dd') AS payment_date
 FROM payment
 WHERE customer_id = 5
   AND (amount > 6 OR TO_CHAR(payment_date, 'YYYY-MM-dd') = '2005-06-19');
