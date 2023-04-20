@@ -7,7 +7,7 @@ FROM customer
 WHERE customer_id = (SELECT MAX(customer_id) FROM customer);
 
 /*
- Use subquery by itself for clearer understand what query are return
+ Use sub-query by itself for clearer understand what query are return
  */
 SELECT MAX(customer_id)
 FROM customer;
@@ -176,7 +176,7 @@ WHERE NOT EXISTS
     );
 
 /*
- Data Manipulation Using Correlated Subqueries
+ Data Manipulation Using Correlated Sub-queries
  */
 
 UPDATE customer
@@ -194,7 +194,7 @@ WHERE EXISTS(SELECT 1
              WHERE r.customer_id = c.customer_id);
 
 /*
- Subqueries as Data Sources
+ Sub-queries as Data Sources
  */
 
 -- with `FROM` clause
@@ -300,7 +300,7 @@ FROM customer AS c
          INNER JOIN (SELECT customer_id, COUNT(*) AS num_rentals, SUM(amount) AS tot_payments
                      FROM payment
                      GROUP BY customer_id
-                     ORDER BY customer_id ASC) AS pymnt
+                     ORDER BY customer_id) AS pymnt
                     ON c.customer_id = pymnt.customer_id;
 
 
@@ -334,7 +334,7 @@ FROM (SELECT customer_id, COUNT(*) AS num_rentals, SUM(amount) AS tot_payments
 GROUP BY pymnt_grps.name;
 
 /*
- Sub-queries for solve concreate task
+ Sub-queries for solve concrete task
  */
 SELECT c.first_name, c.last_name, ct.city, SUM(p.amount) AS tot_payments, COUNT(*) AS tot_rentals
 FROM payment p
@@ -425,8 +425,20 @@ WHERE EXISTS(
           )
 
 -- 9.3
-SELECT 'Hollywood Star' AS level, 30 AS min_roles, 99999 AS max_roles
+SELECT 'Hollywood Star' AS LEVEL, 30 AS min_roles, 99999 AS max_roles
 UNION ALL
-SELECT 'Prolific Actor' AS level, 20 AS min_roles, 29 AS max_roles
+SELECT 'Prolific Actor' AS LEVEL, 20 AS min_roles, 29 AS max_roles
 UNION ALL
-SELECT 'Newcomer' AS level, 1 AS min_roles, 19 AS max_roles
+SELECT 'Newcomer' AS LEVEL, 1 AS min_roles, 19 AS max_roles;
+
+SELECT actr.actor_id, grpc.actor_level
+FROM (SELECT actor_id, COUNT(*) AS num_roles
+      FROM film_actor
+      GROUP BY actor_id) actr INNER JOIN  (
+SELECT 'Hollywood Star' AS actor_level, 30 AS min_roles, 99999 AS max_roles
+UNION ALL
+SELECT 'Prolific Actor' AS actor_level, 20 AS min_roles, 29 AS max_roles
+UNION ALL
+SELECT 'Newcomer' AS actor_level, 1 AS min_roles, 19 AS max_roles) grpc
+      ON actr.num_roles
+      BETWEEN grpc.min_roles and grpc.max_roles;
